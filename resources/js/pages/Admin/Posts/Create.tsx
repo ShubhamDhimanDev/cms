@@ -19,6 +19,7 @@ type FormData = {
     title: string;
     slug: string;
     excerpt: string;
+    keywords: string;
     content: PostBlock[];
     status: 'draft' | 'published';
     published_at: string;
@@ -34,6 +35,7 @@ export default function CreatePost({ categories }: Props) {
         title: '',
         slug: '',
         excerpt: '',
+        keywords: '',
         content: [],
         status: 'draft',
         published_at: '',
@@ -124,6 +126,19 @@ export default function CreatePost({ categories }: Props) {
                             className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
                         />
                         <InputError message={form.errors.excerpt} />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="keywords">SEO Keywords</Label>
+                        <textarea
+                            id="keywords"
+                            rows={2}
+                            placeholder="Separate keywords with commas"
+                            value={form.data.keywords}
+                            onChange={(event) => form.setData('keywords', event.target.value)}
+                            className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
+                        />
+                        <InputError message={form.errors.keywords} />
                     </div>
 
                     <div className="grid gap-2">

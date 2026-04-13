@@ -50,6 +50,7 @@ export interface Post {
     title: string;
     slug: string;
     excerpt: string | null;
+    keywords: string | null;
     content: PostBlock[];
     status: 'draft' | 'published';
     published_at: string | null;
