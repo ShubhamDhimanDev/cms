@@ -46,6 +46,10 @@ class EventService
             throw ValidationException::withMessages(['event' => 'This event is not available for registration.']);
         }
 
+        if ($event->hasRegistrationEnded()) {
+            throw ValidationException::withMessages(['event' => 'This event is no longer open for registration.']);
+        }
+
         if ($event->isFull()) {
             throw ValidationException::withMessages(['event' => 'This event is fully booked.']);
         }

@@ -15,12 +15,6 @@ class PublicEventRegistrationController extends Controller
      */
     public function store(StoreEventRegistrationRequest $request, Event $event, EventService $eventService): RedirectResponse
     {
-        if ($event->starts_at?->isPast()) {
-            throw ValidationException::withMessages([
-                'event' => 'This event is no longer open for registration.',
-            ]);
-        }
-
         $eventService->register(
             $event,
             $request->validated(),

@@ -6,6 +6,7 @@ import * as eventRoutes from '@/routes/events';
 type PublicEvent = Event & {
     confirmed_registrants_count: number;
     is_full: boolean;
+    is_registration_open: boolean;
 };
 
 type Props = {
@@ -114,6 +115,11 @@ export default function EventShow({ event }: Props) {
                                     {event.confirmed_registrants_count}
                                     {event.max_registrants ? ` / ${event.max_registrants}` : ''} confirmed
                                 </p>
+                                {event.registration_ends_at && (
+                                    <p className="mt-1 text-xs text-white/50">
+                                        Registration closes: {formatDateTime(event.registration_ends_at, event.timezone)}
+                                    </p>
+                                )}
                             </div>
                         </div>
                     </section>
@@ -132,6 +138,12 @@ export default function EventShow({ event }: Props) {
                         {errors.event && (
                             <div className="mt-5 rounded-lg border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
                                 {errors.event}
+                            </div>
+                        )}
+
+                        {!event.is_registration_open && !event.is_full && (
+                            <div className="mt-5 rounded-lg border border-amber-400/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-200">
+                                Registration for this event is closed.
                             </div>
                         )}
 
@@ -186,10 +198,16 @@ export default function EventShow({ event }: Props) {
 
                             <button
                                 type="submit"
-                                disabled={processing || event.is_full}
+                                disabled={processing || event.is_full || !event.is_registration_open}
                                 className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-secondary-container px-5 py-3 text-sm font-bold text-on-secondary transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
                             >
-                                {processing ? 'Submitting...' : event.is_full ? 'Event is fully booked' : 'Submit'}
+                                {processing
+                                    ? 'Submitting...'
+                                    : event.is_full
+                                      ? 'Event is fully booked'
+                                      : !event.is_registration_open
+                                        ? 'Registration closed'
+                                        : 'Submit'}
                             </button>
                         </form>
                     </section>

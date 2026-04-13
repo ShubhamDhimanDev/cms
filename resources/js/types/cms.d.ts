@@ -109,6 +109,7 @@ export interface Event {
     type: 'online' | 'in_person';
     starts_at: string;
     ends_at: string | null;
+    registration_ends_at: string | null;
     timezone: string;
     location: string;
     location_url: string | null;

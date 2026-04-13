@@ -24,6 +24,7 @@ class StoreEventRequest extends FormRequest
             'type' => ['required', Rule::in(['online', 'in_person'])],
             'starts_at' => ['required', 'date'],
             'ends_at' => ['nullable', 'date', 'after:starts_at'],
+            'registration_ends_at' => ['nullable', 'date', 'before_or_equal:starts_at'],
             'timezone' => ['nullable', 'string', 'max:100'],
             'location' => ['required', 'string', 'max:255'],
             'location_url' => ['nullable', 'string', 'url', 'max:500'],
