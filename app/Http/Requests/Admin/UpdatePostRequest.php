@@ -26,6 +26,7 @@ class UpdatePostRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', Rule::unique('posts', 'slug')->ignore($this->route('post'))],
             'excerpt' => ['nullable', 'string'],
+            'keywords' => ['nullable', 'string', 'max:500'],
             'content' => ['nullable', 'array'],
             'status' => ['required', Rule::in(['draft', 'published'])],
             'published_at' => ['nullable', 'date'],
