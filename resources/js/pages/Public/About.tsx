@@ -3,33 +3,33 @@ import SiteLayout from '@/layouts/site-layout';
 const values = [
     {
         key: 'Strive',
-        description: 'We deliver the best possible outcomes for our clients and take pride in our work built on quality and integrity.',
+        description: 'We are committed to achieving the best outcomes for our students, delivering quality with passion and integrity.',
         icon: 'trending_up',
     },
     {
         key: 'Integrity',
-        description: 'We communicate openly, honestly and respectfully.',
+        description: 'We communicate with honesty, transparency, and respect—always putting our students first.',
         icon: 'verified',
     },
     {
-        key: 'Bold',
-        description: 'We embrace change to help our clients and colleagues.',
+        key: 'Boldness',
+        description: 'We embrace change, think differently, and continuously innovate to create better opportunities.',
         icon: 'bolt',
     },
     {
         key: 'Responsibility',
-        description: 'We are committed to our communities.',
+        description: 'We are dedicated to supporting our communities and making a meaningful impact.',
         icon: 'handshake',
     },
     {
         key: 'Professionalism',
-        description: 'Pursue excellence for our clients and colleagues.',
+        description: 'We pursue excellence in everything we do, maintaining the highest standards for our students and partners.',
         icon: 'workspace_premium',
     },
     {
         key: 'Team Work',
         description:
-            'Take initiative and ownership. Be ambitious and create your own opportunities. Work smart, work hard. Be a team player, collaborate, have fun.',
+            'We grow stronger together—collaborating, supporting, and celebrating success as one team.',
         icon: 'groups',
     },
 ];
@@ -37,11 +37,11 @@ const values = [
 const whyChooseUs = [
     'British Council Certified counsellor',
     'UCAS Registered Centre',
-    '100% FREE consultation',
-    'Visa support and assistance for International Students',
-    'Free eligibility check to study in UK',
-    "A review of student's personal statement",
-    'A list of recommended universities and courses',
+    '100% FREE consultation and guidance',
+    'Dedicated visa support for international students',
+    'Free eligibility assessment for UK study',
+    'Personal statement review and enhancement',
+    'Tailored university and course recommendations',
 ];
 
 export default function About() {
@@ -64,14 +64,13 @@ export default function About() {
                                 <span className="text-gradient-gold">Education Partner</span>
                             </h1>
                             <p className="text-[#a09a97] font-body text-lg leading-relaxed mb-8">
-                                Smart Move Education Group is a student recruitment consultancy based in London who offers support for those looking to get
-                                into education. We understand the difficulties that come with the admission process and aim to help every student that walks
-                                through our doors.
+                                Smart Move Education Group is a London-based student recruitment consultancy dedicated to helping students unlock their academic and career potential through UK education.
+                            </p>
+                            <p className="text-[#a09a97] font-body text-base leading-relaxed mb-8">
+                                We understand that the admissions journey can be complex and overwhelming—that’s why we’re here to guide you every step of the way. From choosing the right course and university to navigating applications and understanding entry requirements, we simplify the entire process.
                             </p>
                             <p className="text-[#a09a97] font-body text-base leading-relaxed">
-                                Whether it be choosing a course, an institution, starting an application or simply understanding the requirements, we offer
-                                our services to simplify the process. We have been successful in recruiting home and international students from diverse
-                                backgrounds, enrolling them to suitable universities that meet their personal and individual needs.
+                                We proudly support both home and international students from diverse backgrounds, helping them secure places at universities that align with their ambitions, strengths, and future goals. Through our strong partnerships with UK institutions, we don’t just find you a course—we help you find the right path for your success.
                             </p>
                         </div>
                         <div className="relative">
@@ -124,8 +123,7 @@ export default function About() {
                         </span>
                         <h2 className="text-3xl lg:text-5xl font-headline font-bold text-white mb-4">Our Values</h2>
                         <p className="text-[#a09a97] font-body text-base max-w-2xl mx-auto">
-                            Values help us ensure that all our employees are working towards the same goals. Our core values support the company's vision and
-                            shape its culture.
+                            Our values define who we are, guide how we work, and inspire us to deliver excellence every day.
                         </p>
                     </div>
 
@@ -167,8 +165,11 @@ export default function About() {
                                 Our Advantage
                             </span>
                             <h2 className="text-3xl lg:text-5xl font-headline font-bold text-white leading-tight mb-8">
-                                Why Choose <span className="text-gradient-gold">Smart Move</span>
+                                Why Choose <span className="text-gradient-gold">Smart Move?</span>
                             </h2>
+                            <p className="text-[#a09a97] font-body text-base max-w-2xl mx-auto mb-6">
+                                We go beyond consultancy—we become your partner in success.
+                            </p>
                             <ul className="space-y-4">
                                 {whyChooseUs.map((item) => (
                                     <li key={item} className="flex items-start gap-3">

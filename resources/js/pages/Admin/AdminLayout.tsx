@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { LayoutDashboard, FileText, Newspaper, Tags, Image, MessageSquare } from 'lucide-react';
+import { LayoutDashboard, FileText, Newspaper, Tags, Image, MessageSquare, Calendar } from 'lucide-react';
 import type { ReactNode } from 'react';
 import admin from '@/routes/admin';
 
@@ -19,6 +19,7 @@ const navItems: NavItem[] = [
     { label: 'Dashboard', href: admin.dashboard.url(), icon: LayoutDashboard },
     { label: 'Pages', href: admin.pages.index.url(), icon: FileText },
     { label: 'Posts', href: admin.posts.index.url(), icon: Newspaper },
+    { label: 'Events', href: admin.events.index.url(), icon: Calendar },
     { label: 'Categories', href: admin.categories.index.url(), icon: Tags },
     { label: 'Media', href: admin.media.index.url(), icon: Image },
     { label: 'Comments', href: admin.comments.index.url(), icon: MessageSquare },

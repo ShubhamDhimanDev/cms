@@ -100,3 +100,30 @@ export interface PaginatedResponse<T> {
     total: number;
     links: { url: string | null; label: string; active: boolean }[];
 }
+
+export interface Event {
+    id: number;
+    title: string;
+    slug: string;
+    excerpt: string | null;
+    type: 'online' | 'in_person';
+    starts_at: string;
+    ends_at: string | null;
+    timezone: string;
+    location: string;
+    location_url: string | null;
+    status: 'draft' | 'published' | 'cancelled';
+    max_registrants: number | null;
+    confirmed_registrants_count?: number;
+    created_at: string;
+}
+
+export interface EventRegistrant {
+    id: number;
+    name: string;
+    email: string;
+    phone: string | null;
+    status: 'pending' | 'confirmed' | 'cancelled';
+    notes: string | null;
+    created_at: string;
+}
