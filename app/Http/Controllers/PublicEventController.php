@@ -3,22 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class PublicEventController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $events = Event::query()
-            ->where('status', 'published')
-            ->where('starts_at', '>=', now())
-            ->orderBy('starts_at')
+        $filter = in_array($request->query('filter'), ['all', 'past', 'upcoming']) ? $request->query('filter') : 'upcoming';
+
+        $query = Event::query()->where('status', 'published');
+
+        if ($filter === 'upcoming') {
+            $query->where('starts_at', '>=', now())->orderBy('starts_at');
+        } elseif ($filter === 'past') {
+            $query->where('starts_at', '<', now())->orderByDesc('starts_at');
+        } else {
+            $query->orderBy('starts_at');
+        }
+
+        $events = $query
             ->paginate(9)
+            ->withQueryString()
             ->through(fn (Event $event): array => $this->formatEvent($event));
 
         return Inertia::render('Public/Events/Index', [
             'events' => $events,
+            'filter' => $filter,
         ]);
     }
 
@@ -36,6 +48,7 @@ class PublicEventController extends Controller
                 ...$this->formatEvent($event),
                 'confirmed_registrants_count' => $event->confirmed_registrants_count,
                 'is_full' => $event->isFull(),
+                'is_registration_open' => ! $event->hasRegistrationEnded() && ! $event->isFull(),
             ],
         ]);
     }
@@ -53,6 +66,7 @@ class PublicEventController extends Controller
             'type' => $event->type,
             'starts_at' => $event->starts_at?->toISOString(),
             'ends_at' => $event->ends_at?->toISOString(),
+            'registration_ends_at' => $event->registration_ends_at?->toISOString(),
             'timezone' => $event->timezone,
             'location' => $event->location,
             'location_url' => $event->location_url,

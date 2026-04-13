@@ -31,6 +31,7 @@ export function withAdminLayout({ children }: { children: ReactNode }) {
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
     const page = usePage<SharedProps>();
+    const currentPath = page.url.split('?')[0].replace(/\/$/, '') || '/';
 
     return (
         <div className="min-h-screen bg-neutral-50 text-neutral-900">
@@ -42,7 +43,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
                     <nav className="mt-4 flex flex-1 flex-col gap-1">
                         {navItems.map((item) => {
-                            const isActive = page.url === item.href || page.url.startsWith(`${item.href}/`);
+                            const itemPath = item.href.replace(/\/$/, '') || '/';
+                            const isDashboard = item.label === 'Dashboard';
+                            const isActive = isDashboard
+                                ? currentPath === itemPath
+                                : currentPath === itemPath || currentPath.startsWith(`${itemPath}/`);
 
                             return (
                                 <Link

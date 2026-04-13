@@ -1,10 +1,13 @@
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import SiteLayout from '@/layouts/site-layout';
 import type { Event, PaginatedResponse } from '@/types/cms';
 import * as eventRoutes from '@/routes/events';
 
+type FilterValue = 'upcoming' | 'past' | 'all';
+
 type Props = {
     events: PaginatedResponse<Event>;
+    filter: FilterValue;
 };
 
 function formatDate(dateString: string, timezone: string): string {
@@ -24,21 +27,51 @@ function typeBadgeClass(type: Event['type']): string {
         : 'border-[#50ddb8]/30 bg-[#50ddb8]/10 text-[#50ddb8]';
 }
 
-export default function EventsIndex({ events }: Props) {
+export default function EventsIndex({ events, filter }: Props) {
+    const filters: { value: FilterValue; label: string }[] = [
+        { value: 'upcoming', label: 'Upcoming Events' },
+        { value: 'past', label: 'Past Events' },
+        { value: 'all', label: 'All' },
+    ];
+
+    function setFilter(value: FilterValue) {
+        router.get(eventRoutes.index.url(), value === 'upcoming' ? {} : { filter: value }, {
+            preserveScroll: false,
+            replace: true,
+        });
+    }
+
     return (
         <SiteLayout title="Events | Smart Move Education Group" activePage="events">
             <main className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
                 <header className="mb-10 reveal visible">
                     <p className="font-label text-secondary-container mb-3 text-xs font-bold uppercase tracking-[0.2em]">WHAT'S ON</p>
-                    <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">Upcoming Events</h1>
+                    <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">Events</h1>
                     <p className="mt-3 max-w-2xl text-base text-white/50">
                         Join our information sessions, open days, and student support workshops.
                     </p>
                 </header>
 
+                {/* Filter tabs */}
+                <div className="mb-8 flex flex-wrap gap-2">
+                    {filters.map((f) => (
+                        <button
+                            key={f.value}
+                            onClick={() => setFilter(f.value)}
+                            className={`rounded-full border px-5 py-2 text-sm font-semibold transition-all ${
+                                filter === f.value
+                                    ? 'border-[#00b4e0] bg-[#00b4e0]/15 text-[#00b4e0]'
+                                    : 'border-white/10 bg-white/[0.03] text-white/50 hover:border-white/20 hover:text-white'
+                            }`}
+                        >
+                            {f.label}
+                        </button>
+                    ))}
+                </div>
+
                 {events.data.length === 0 ? (
                     <div className="glass-card rounded-2xl p-10 text-center text-white/50">
-                        No upcoming events at the moment. Please check back soon.
+                        {filter === 'past' ? 'No past events found.' : filter === 'upcoming' ? 'No upcoming events at the moment. Please check back soon.' : 'No events found.'}
                     </div>
                 ) : (
                     <div className="space-y-4">

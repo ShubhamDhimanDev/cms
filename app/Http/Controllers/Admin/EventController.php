@@ -83,6 +83,7 @@ class EventController extends Controller
             'type' => $event->type,
             'starts_at' => $event->starts_at?->toISOString(),
             'ends_at' => $event->ends_at?->toISOString(),
+            'registration_ends_at' => $event->registration_ends_at?->toISOString(),
             'timezone' => $event->timezone,
             'location' => $event->location,
             'location_url' => $event->location_url,

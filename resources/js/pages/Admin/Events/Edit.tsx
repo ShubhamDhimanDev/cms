@@ -32,6 +32,14 @@ type Props = {
     event: Event;
 };
 
+function toDateTimeLocalValue(value: string | null): string {
+    if (!value) {
+        return '';
+    }
+
+    return value.slice(0, 16);
+}
+
 export default function EditEvent({ event }: Props) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { data, setData, put, errors } = useForm({
@@ -39,8 +47,9 @@ export default function EditEvent({ event }: Props) {
         slug: event.slug,
         excerpt: event.excerpt || '',
         type: event.type,
-        starts_at: event.starts_at.replace('T', ' ').slice(0, 16),
-        ends_at: event.ends_at ? event.ends_at.replace('T', ' ').slice(0, 16) : '',
+        starts_at: toDateTimeLocalValue(event.starts_at),
+        ends_at: toDateTimeLocalValue(event.ends_at),
+        registration_ends_at: toDateTimeLocalValue(event.registration_ends_at),
         timezone: event.timezone,
         location: event.location,
         location_url: event.location_url || '',
@@ -62,6 +71,9 @@ export default function EditEvent({ event }: Props) {
                 ? 'border-red-300 bg-red-50 focus:border-red-500 focus:ring-red-500'
                 : 'border-neutral-300 focus:border-neutral-900 focus:ring-neutral-900'
         }`;
+
+    const dateTimeInputClass = (fieldName: keyof typeof errors) =>
+        `${inputClass(fieldName)} [color-scheme:light] [&&::-webkit-calendar-picker-indicator]:cursor-pointer [&&::-webkit-calendar-picker-indicator]:opacity-100`;
 
     return (
         <>
@@ -180,7 +192,7 @@ export default function EditEvent({ event }: Props) {
                                 type="datetime-local"
                                 value={data.starts_at}
                                 onChange={(e) => setData('starts_at', e.target.value)}
-                                className={inputClass('starts_at')}
+                                className={dateTimeInputClass('starts_at')}
                             />
                             {errors.starts_at && <p className="mt-1 text-xs text-red-600">{errors.starts_at}</p>}
                         </div>
@@ -193,9 +205,23 @@ export default function EditEvent({ event }: Props) {
                                 type="datetime-local"
                                 value={data.ends_at}
                                 onChange={(e) => setData('ends_at', e.target.value)}
-                                className={inputClass('ends_at')}
+                                className={dateTimeInputClass('ends_at')}
                             />
                             {errors.ends_at && <p className="mt-1 text-xs text-red-600">{errors.ends_at}</p>}
+                        </div>
+
+                        <div>
+                            <label className="mb-2 block text-sm font-medium text-neutral-700">
+                                Registration Ends At
+                            </label>
+                            <input
+                                type="datetime-local"
+                                value={data.registration_ends_at}
+                                onChange={(e) => setData('registration_ends_at', e.target.value)}
+                                className={dateTimeInputClass('registration_ends_at')}
+                            />
+                            <p className="mt-1 text-xs text-neutral-500">Optional. Leave empty to keep registration open until event start time.</p>
+                            {errors.registration_ends_at && <p className="mt-1 text-xs text-red-600">{errors.registration_ends_at}</p>}
                         </div>
 
                         <div>

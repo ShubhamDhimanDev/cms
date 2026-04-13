@@ -27,6 +27,7 @@ class Event extends Model
         'type',
         'starts_at',
         'ends_at',
+        'registration_ends_at',
         'timezone',
         'location',
         'location_url',
@@ -43,6 +44,7 @@ class Event extends Model
         return [
             'starts_at' => 'datetime',
             'ends_at' => 'datetime',
+            'registration_ends_at' => 'datetime',
             'max_registrants' => 'integer',
         ];
     }
@@ -75,5 +77,14 @@ class Event extends Model
         return $this->registrants()
             ->whereIn('status', ['pending', 'confirmed'])
             ->count() >= $this->max_registrants;
+    }
+
+    public function hasRegistrationEnded(): bool
+    {
+        if ($this->starts_at?->isPast()) {
+            return true;
+        }
+
+        return $this->registration_ends_at?->isPast() ?? false;
     }
 }
