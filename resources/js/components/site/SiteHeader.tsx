@@ -11,7 +11,7 @@ export default function SiteHeader({ activePage = 'home' }: { activePage?: strin
             <div className="w-full bg-secondary-container text-on-secondary py-2.5 px-4 flex items-center justify-center gap-3 text-xs font-label font-bold tracking-widest uppercase">
                 <span className="w-1.5 h-1.5 rounded-full bg-on-secondary/60 animate-pulse inline-block"></span>
                 <span>
-                    March 2026 Intake is Now Open !{' '}
+                    June 2026 Intake is Now Open !{' '}
                     <a href="#" className="underline underline-offset-2 hover:opacity-70 transition-opacity">
                         Apply by 31st March
                     </a>
@@ -87,7 +87,7 @@ export default function SiteHeader({ activePage = 'home' }: { activePage?: strin
                                             <div>
                                                 <span className="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulse inline-block mr-1.5"></span>
                                                 <span className="text-[10px] font-label font-bold uppercase tracking-widest text-secondary-container">
-                                                    March 2026 — Intake Open
+                                                    June 2026 — Intake Open
                                                 </span>
                                                 <p className="font-headline font-bold text-white text-xl mt-3 leading-tight">Start Your UK Degree Journey</p>
                                                 <p className="text-xs text-white/40 mt-2 leading-relaxed">
@@ -122,7 +122,7 @@ export default function SiteHeader({ activePage = 'home' }: { activePage?: strin
                         <a className={`nav-link ${activePage === 'services' ? 'active text-white' : 'text-white/60 hover:text-white transition-colors'}`} href="#">
                             Services
                         </a>
-                        <a className={`nav-link ${activePage === 'blog' ? 'active text-white' : 'text-white/60 hover:text-white transition-colors'}`} href="#">
+                        <a className={`nav-link ${activePage === 'blog' ? 'active text-white' : 'text-white/60 hover:text-white transition-colors'}`} href="/blog">
                             Blog
                         </a>
                         <a className={`nav-link ${activePage === 'contact' ? 'active text-white' : 'text-white/60 hover:text-white transition-colors'}`} href="/contact">

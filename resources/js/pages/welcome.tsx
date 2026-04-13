@@ -1,7 +1,7 @@
 ﻿import SiteLayout from '@/layouts/site-layout';
 import { useState } from 'react';
 
-const cities = ['london', 'birmingham', 'manchester', 'leeds', 'wales'] as const;
+const cities = ['london', 'manchester', 'birmingham', 'cardiff', 'swansea', 'leeds', 'nottingham', 'newcastle'] as const;
 type City = (typeof cities)[number];
 
 const cityData: Record<
@@ -19,58 +19,87 @@ const cityData: Record<
     london: {
         title: 'London',
         description:
-            "The world's most globally connected capital. With over 40 universities in Greater London, students benefit from unparalleled industry access and cultural diversity.",
-        points: ['40+ universities to choose from', 'Global hub for finance, tech and media', 'Graduate route eligible'],
+            "Study in one of the world’s most dynamic cities. From global business hubs to cultural landmarks, London offers unmatched career opportunities, networking potential, and a truly international student experience.",
+        points: [],
         image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBRtLnMNAVkI-SmMTasEDqj49VEGstaQ0DFCWdxMJO4bzh_O5pG2_Ls4Wxl6VgXHZbZVTAEESfkcMai3RWbXpBUP6cratEc-9zQczS3qriN2a_ErgnzUGC5avpzADyT8anaJI_JonUZIXqRxjv_G_pD9pFg8Q4WUaZaujvMPTs7I5Tze6LXa3gA-zPXJSGGmCX24d3Tm_AFGswVLH9MmpqpO0_WynvRgG1GqYL6j7nMi3RRP-AFt8Zo4Hiz8kEpyrnrFOelZ_m26EEF',
         imageAlt: 'London skyline at dawn',
         placeholderIcon: 'location_on',
         linkLabel: 'Explore London courses',
     },
-    birmingham: {
-        title: 'Birmingham',
-        description:
-            "The UK's second city, with a thriving student population of over 80,000 and a lower cost of living than London. Home to world-class universities and a booming tech sector.",
-        points: ['Lower living costs than London', 'Growing tech and business sector', 'Vibrant multicultural community'],
-        image: null,
-        imageAlt: null,
-        placeholderIcon: 'location_city',
-        linkLabel: 'Explore Birmingham courses',
-    },
     manchester: {
         title: 'Manchester',
         description:
-            'A world-renowned university city with excellent research output, an iconic music scene and a multicultural character. World-class education at very affordable living costs.',
-        points: ['Internationally ranked universities', 'Russell Group access', 'Affordable student lifestyle'],
+            'A city known for innovation and creativity, Manchester is a student favourite with a strong academic reputation and growing opportunities in business, tech, and the arts.',
+        points: [],
         image: null,
         imageAlt: null,
         placeholderIcon: 'location_city',
         linkLabel: 'Explore Manchester courses',
     },
+    birmingham: {
+        title: 'Birmingham',
+        description:
+            "The UK’s second-largest city, Birmingham is a thriving centre for industry, diversity, and career growth—perfect for students looking to build strong professional connections.",
+        points: [],
+        image: null,
+        imageAlt: null,
+        placeholderIcon: 'location_city',
+        linkLabel: 'Explore Birmingham courses',
+    },
+    cardiff: {
+        title: 'Cardiff',
+        description: "A welcoming capital city offering high-quality education, a vibrant student lifestyle, and excellent career prospects in a close-knit and supportive environment.",
+        points: [],
+        image: null,
+        imageAlt: null,
+        placeholderIcon: 'location_city',
+        linkLabel: 'Explore Cardiff courses',
+    },
+    swansea: {
+        title: 'Swansea',
+        description:
+            "A beautiful coastal city combining outstanding education with a relaxed lifestyle—ideal for students seeking balance, community, and focus.",
+        points: [],
+        image: null,
+        imageAlt: null,
+        placeholderIcon: 'location_city',
+        linkLabel: 'Explore Swansea courses',
+    },
     leeds: {
         title: 'Leeds',
         description:
-            "One of the UK's fastest-growing cities with a huge student community. Leeds offers an exceptional quality of life and is home to major employers in law, finance and health.",
-        points: ['Thriving student union and social scene', 'Strong healthcare and law programmes', 'Excellent graduate employment rate'],
+            "One of the UK’s largest student cities, Leeds is known for its lively atmosphere, strong universities, and excellent opportunities in business, finance, and creative industries.",
+        points: [],
         image: null,
         imageAlt: null,
         placeholderIcon: 'location_city',
         linkLabel: 'Explore Leeds courses',
     },
-    wales: {
-        title: 'Wales',
+    nottingham: {
+        title: 'Nottingham',
         description:
-            'An affordable, scenic region with excellent university provision. UWTSD and Cardiff Met offer strong vocational and academic programmes in a welcoming bilingual environment.',
-        points: ['Lowest cost of living in the UK', 'Strong UWTSD partnerships', 'Beautiful scenic campus environments'],
+            "A city rich in history and innovation, Nottingham offers a fantastic student experience with strong academic institutions and growing career pathways.",
+        points: [],
         image: null,
         imageAlt: null,
-        placeholderIcon: 'landscape',
-        linkLabel: 'Explore Wales courses',
+        placeholderIcon: 'location_city',
+        linkLabel: 'Explore Nottingham courses',
     },
+    newcastle: {
+        title: 'Newcastle',
+        description:
+            "Famous for its friendly atmosphere and vibrant student life, Newcastle provides quality education alongside exciting opportunities in healthcare, engineering, and digital sectors.",
+        points: [],
+        image: null,
+        imageAlt: null,
+        placeholderIcon: 'location_city',
+        linkLabel: 'Explore Newcastle courses',
+    }
 };
 
 const courses = [
     {
-        title: 'MSc Business Management',
+        title: 'Business & Management',
         tag: 'Postgraduate',
         tagClass: 'bg-primary-container/25 text-[#bcc2ff]',
         duration: '1 Year Full-time',
@@ -84,7 +113,7 @@ const courses = [
         revealDelay: '',
     },
     {
-        title: 'BSc Nursing & Healthcare',
+        title: 'Health & Social Care',
         tag: 'Top-up Degree',
         tagClass: 'bg-tertiary-container/25 text-tertiary',
         duration: '1 Year',
@@ -98,7 +127,7 @@ const courses = [
         revealDelay: 'reveal-d1',
     },
     {
-        title: 'BSc Computer Science',
+        title: 'Computing & IT',
         tag: 'Undergraduate',
         tagClass: 'bg-primary-container/25 text-[#bcc2ff]',
         duration: '3 Years Full-time',
@@ -112,7 +141,59 @@ const courses = [
         revealDelay: 'reveal-d2',
     },
     {
-        title: 'MA International Relations',
+        title: 'Law',
+        tag: 'Postgraduate',
+        tagClass: 'bg-primary-container/25 text-[#bcc2ff]',
+        duration: '1-2 Years',
+        description: 'Explore global policy, diplomacy and international law. Perfect for students aiming for careers in government, NGOs or international organisations.',
+        hoverClass: 'group-hover:text-secondary-container',
+        linkClass: 'text-secondary-container',
+        shadow: 'hover:shadow-[0_4px_40px_rgba(239,165,0,.1)]',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMTHlNxSkhkqni7ZRwGmVocC23siV46lB9Ri5hv1IryN12dN9wOzmGyABTKToxyT3V8inDVnFkpjXO-LoLfrn3VTUTzLViULSRC7wzAPhRjYIpWNW9yTiFhlYNYs1mW2fYT2cpJzC3GiT4v4uua18g-UYZ4oViuT3pHfhL00kkCveazX53AQK0Ph68gAf_LCl7zMbj5leAJLRzBF_KLH7wknBORvB0oCXg45YTvfFfoE8w_XEwC9O7QQKrRSAcD97nTFr-5fBTh2-h',
+        imageAlt: 'International relations and policy',
+        revealDelay: 'reveal-d3',
+    },
+      {
+        title: 'Psychology',
+        tag: 'Postgraduate',
+        tagClass: 'bg-primary-container/25 text-[#bcc2ff]',
+        duration: '1-2 Years',
+        description: 'Explore global policy, diplomacy and international law. Perfect for students aiming for careers in government, NGOs or international organisations.',
+        hoverClass: 'group-hover:text-secondary-container',
+        linkClass: 'text-secondary-container',
+        shadow: 'hover:shadow-[0_4px_40px_rgba(239,165,0,.1)]',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMTHlNxSkhkqni7ZRwGmVocC23siV46lB9Ri5hv1IryN12dN9wOzmGyABTKToxyT3V8inDVnFkpjXO-LoLfrn3VTUTzLViULSRC7wzAPhRjYIpWNW9yTiFhlYNYs1mW2fYT2cpJzC3GiT4v4uua18g-UYZ4oViuT3pHfhL00kkCveazX53AQK0Ph68gAf_LCl7zMbj5leAJLRzBF_KLH7wknBORvB0oCXg45YTvfFfoE8w_XEwC9O7QQKrRSAcD97nTFr-5fBTh2-h',
+        imageAlt: 'International relations and policy',
+        revealDelay: 'reveal-d3',
+    },
+      {
+        title: 'Digital Marketing',
+        tag: 'Postgraduate',
+        tagClass: 'bg-primary-container/25 text-[#bcc2ff]',
+        duration: '1-2 Years',
+        description: 'Explore global policy, diplomacy and international law. Perfect for students aiming for careers in government, NGOs or international organisations.',
+        hoverClass: 'group-hover:text-secondary-container',
+        linkClass: 'text-secondary-container',
+        shadow: 'hover:shadow-[0_4px_40px_rgba(239,165,0,.1)]',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMTHlNxSkhkqni7ZRwGmVocC23siV46lB9Ri5hv1IryN12dN9wOzmGyABTKToxyT3V8inDVnFkpjXO-LoLfrn3VTUTzLViULSRC7wzAPhRjYIpWNW9yTiFhlYNYs1mW2fYT2cpJzC3GiT4v4uua18g-UYZ4oViuT3pHfhL00kkCveazX53AQK0Ph68gAf_LCl7zMbj5leAJLRzBF_KLH7wknBORvB0oCXg45YTvfFfoE8w_XEwC9O7QQKrRSAcD97nTFr-5fBTh2-h',
+        imageAlt: 'International relations and policy',
+        revealDelay: 'reveal-d3',
+    },
+      {
+        title: 'Fashion',
+        tag: 'Postgraduate',
+        tagClass: 'bg-primary-container/25 text-[#bcc2ff]',
+        duration: '1-2 Years',
+        description: 'Explore global policy, diplomacy and international law. Perfect for students aiming for careers in government, NGOs or international organisations.',
+        hoverClass: 'group-hover:text-secondary-container',
+        linkClass: 'text-secondary-container',
+        shadow: 'hover:shadow-[0_4px_40px_rgba(239,165,0,.1)]',
+        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMTHlNxSkhkqni7ZRwGmVocC23siV46lB9Ri5hv1IryN12dN9wOzmGyABTKToxyT3V8inDVnFkpjXO-LoLfrn3VTUTzLViULSRC7wzAPhRjYIpWNW9yTiFhlYNYs1mW2fYT2cpJzC3GiT4v4uua18g-UYZ4oViuT3pHfhL00kkCveazX53AQK0Ph68gAf_LCl7zMbj5leAJLRzBF_KLH7wknBORvB0oCXg45YTvfFfoE8w_XEwC9O7QQKrRSAcD97nTFr-5fBTh2-h',
+        imageAlt: 'International relations and policy',
+        revealDelay: 'reveal-d3',
+    },
+    {
+        title: 'Music',
         tag: 'Postgraduate',
         tagClass: 'bg-primary-container/25 text-[#bcc2ff]',
         duration: '1-2 Years',
@@ -138,7 +219,7 @@ export default function Welcome() {
     const city = cityData[activeCity];
 
     return (
-        <SiteLayout title="Smart Move Education Group | Your Journey to a UK Degree" activePage="home">
+        <SiteLayout title="Smart Move Education Group | Your Journey to UK Degree" activePage="home">
             {/* Hero */}
             <header className="relative min-h-screen flex items-center overflow-hidden bg-[#131313]">
                 <div className="absolute inset-0 z-0">
@@ -159,16 +240,16 @@ export default function Welcome() {
                         <div className="flex items-center gap-3 mb-8 animate-fadeUp">
                             <div className="flex items-center gap-2 text-secondary-container bg-secondary-container/10 border border-secondary-container/20 px-4 py-1.5 rounded-full">
                                 <span className="w-1.5 h-1.5 rounded-full bg-secondary-container animate-pulseGlow inline-block"></span>
-                                <span className="text-[11px] font-label font-bold uppercase tracking-widest">March 2026 Intake Open</span>
+                                <span className="text-[11px] font-label font-bold uppercase tracking-widest">June 2026 Intake Open</span>
                             </div>
                         </div>
                         <h1 className="font-headline font-black leading-[1.14] tracking-[-0.03em] overflow-visible pb-2">
-                            <span className="text-white text-[clamp(3rem,8vw,6.5rem)] block animate-fadeUp">Your Journey to a</span>
+                            <span className="text-white text-[clamp(3rem,8vw,6.5rem)] block animate-fadeUp">Your Journey to</span>
                             <span className="text-gradient-gold text-[clamp(3rem,8vw,6.5rem)] block animate-fadeUp-d1">UK Degree</span>
                             <span className="text-white text-[clamp(3rem,8vw,6.5rem)] block animate-fadeUp-d1">Starts Here.</span>
                         </h1>
                         <p className="text-white/75 text-lg md:text-xl xl:text-2xl leading-relaxed max-w-xl font-body mt-8 mb-10 animate-fadeUp-d2">
-                            Smart Move connects ambitious international students with leading UK universities from first enquiry to graduation day.
+                            Empowering ambitious students to access top UK universities—guiding you from your first enquiry to the right course and a successful career.
                         </p>
                         <div className="flex flex-wrap gap-4 animate-fadeUp-d2">
                             <a
@@ -187,23 +268,18 @@ export default function Welcome() {
                         </div>
                         <div className="flex flex-wrap gap-8 mt-16 animate-fadeUp-d3">
                             <div>
-                                <div className="text-3xl font-headline font-extrabold text-white leading-none">500+</div>
-                                <div className="text-white/50 text-xs font-label uppercase tracking-wider mt-1">Students Placed</div>
+                                <div className="text-3xl font-headline font-extrabold text-white leading-none">25000+</div>
+                                <div className="text-white/50 text-xs font-label uppercase tracking-wider mt-1">Application Processed</div>
                             </div>
                             <div className="w-px bg-white/15"></div>
                             <div>
-                                <div className="text-3xl font-headline font-extrabold text-white leading-none">20+</div>
-                                <div className="text-white/50 text-xs font-label uppercase tracking-wider mt-1">University Partners</div>
+                                <div className="text-3xl font-headline font-extrabold text-white leading-none">50+</div>
+                                <div className="text-white/50 text-xs font-label uppercase tracking-wider mt-1">Partner Institutions</div>
                             </div>
                             <div className="w-px bg-white/15"></div>
                             <div>
-                                <div className="text-3xl font-headline font-extrabold text-white leading-none">4.8/5</div>
-                                <div className="text-white/50 text-xs font-label uppercase tracking-wider mt-1">Trustpilot Rating</div>
-                            </div>
-                            <div className="w-px bg-white/15"></div>
-                            <div>
-                                <div className="text-3xl font-headline font-extrabold text-white leading-none">98%</div>
-                                <div className="text-white/50 text-xs font-label uppercase tracking-wider mt-1">lorem ipsum</div>
+                                <div className="text-3xl font-headline font-extrabold text-white leading-none">100+</div>
+                                <div className="text-white/50 text-xs font-label uppercase tracking-wider mt-1">Expert Consultants</div>
                             </div>
                         </div>
                     </div>
@@ -214,39 +290,6 @@ export default function Welcome() {
                 </div>
             </header>
 
-            {/* Partner Strip */}
-            <div className="bg-surface-container-lowest border-y border-white/[0.08] py-10">
-                <div className="container mx-auto px-6 lg:px-10 max-w-7xl">
-                    <p className="text-center text-white/20 text-[10px] font-label uppercase tracking-[0.25em] mb-8">Our Trusted University Partners</p>
-                    <div className="flex items-center justify-center flex-wrap gap-16 md:gap-24">
-                        {[
-                            {
-                                alt: 'UWTSD University',
-                                src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuArFhvoM6rYJSCwTbBJ0yQEWGQaG6OHYpMvr3EFu7XI2WCYTJA35hQtinQ4AyKdqawb4nbXjjc0ovezMt8NgqE5zYpFW2YpkmbL12ppj3hs5HmGq1ky0_6q-9E1I2UMzESjcbF7uS5crWFiWV7HqZ_K6IbVonm58BsiRgOLFwzYUV83WB4UoOsqSs3Vysce2e6PbRy5184canJlANF8pAjld8RuxSIoGWpoytY38woGJ7nQmmG1k1YtS_CA4iDJMGLYTPq1d_CKNGQL',
-                            },
-                            {
-                                alt: 'Coventry University',
-                                src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBuHxxR4mydfhQCrTHhBB5OR8bnt1KQfvwfDj09m_Khvg_LKH6hgfDa-uDm52GfbVVwEqlLdZ_6izwA9NsBJQbXpo7tlGQpGOfiZd76OWolGLt8-23FNy6d9Mc9VdB-uY35DVpHDutXe30YR7yrBqUAC_he2soHYmzC9NGkcn-tCu-gDEJ7kjxXaimlb7ShwSUkM_rOIYq3rSw3KNrQAXVq502q8xZC8-gpfQojYFbsujoCJhLbfU5PCE4IhV4W9qsMs5AwFdZonUCI',
-                            },
-                            {
-                                alt: 'Oxford Brookes University',
-                                src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA0Y7uTsFvOEJze7KOc6Y0odzLzQ2nPPfYIaLKCT0z9lDR21cOq8P07x7O4ya1jWzszk0r36yq-tpIKqFvPkhpZTC3V2y9xpC8rZ5lTBLxAU_vu0rTOYUDCbsh9XbdqC_ardazFDdnA4aVemX8Zt6r_nP0XlhA-hFCIhulFt-gl7e4LLvsIXw5qRtvR8juE3P0GHehCWqN0dCcZzHAyiUxsSo2mLbqoXu7bHIKAottXqzTitYzPTVD77opnn8YbQ5vQVneC7GieUto6',
-                            },
-                            {
-                                alt: 'BPP University',
-                                src: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCvOhBymIPQDWQnjNoxXTgaANxK3qpnResGZpSYqEjJidqI5QSMLq42cz7ml_oZcGMmWFvZMxlo-jd96-BE6sDNpc_gQxQBROA1AYxqPdcyef16Foc3sFix5DiZp-AUlgxWUDIA9lzcygiafJa4jHR-5gd5zqD6_CkNI8L0UMQeq0uxcWsvuJBxG9Bzcam4Y_TROcdH14mfctsYOkW0xoKgwnSJ9emy_XdU_fW3W4L6XLcBAYez2DgkAtfcHszYIm7x88_n5ce3IpZT',
-                            },
-                        ].map((partner) => (
-                            <img
-                                key={partner.alt}
-                                className="h-10 object-contain opacity-55 grayscale hover:opacity-85 hover:grayscale-0 transition-all duration-300"
-                                alt={partner.alt}
-                                src={partner.src}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </div>
 
             {/* Who We Are */}
             <section className="py-28 bg-[#131313] relative overflow-hidden">
@@ -278,15 +321,10 @@ export default function Welcome() {
                         <div className="reveal reveal-d1">
                             <p className="font-label text-secondary-container font-bold tracking-[0.2em] mb-5 text-xs uppercase">WHO WE ARE</p>
                             <h2 className="text-white font-headline font-bold text-[clamp(2.2rem,4vw,3.5rem)] leading-[1.1] tracking-tight mb-8">
-                                We believe every student deserves a world-class education.
+                                Turn your ambitions into achievements.
                             </h2>
                             <p className="text-on-surface-variant text-lg leading-relaxed mb-5 font-body">
-                                Smart Move Education Group is a specialist UK university placement service based in London. We work closely with international students at every
-                                stage from choosing the right course to landing at Heathrow.
-                            </p>
-                            <p className="text-on-surface-variant leading-relaxed mb-10 font-body text-base">
-                                Our team of experienced education consultants has guided over 500 students from more than 15 countries into prestigious UK programmes. We are not
-                                just an agency we are partners in your academic journey.
+                                Your journey matters to us. From your first enquiry to securing your place at the right university, we offer complete guidance every step of the way. Whether it’s choosing a course, preparing your application, or understanding entry requirements, we make the process simple and tailored to your future goals.
                             </p>
                             <div className="grid grid-cols-2 gap-4 mb-10">
                                 <div className="bg-surface-container-low rounded-xl p-5">
@@ -317,13 +355,13 @@ export default function Welcome() {
                     <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
                         <div className="reveal">
                             <p className="font-label text-secondary-container font-bold tracking-[0.2em] mb-4 text-xs uppercase">OUR PROGRAMMES</p>
-                            <h2 className="text-white font-headline font-bold text-[clamp(2rem,4vw,3.5rem)] tracking-tight leading-[1.1]">Find Your Course.</h2>
+                            <h2 className="text-white font-headline font-bold text-[clamp(2rem,4vw,3.5rem)] tracking-tight leading-[1.1]">Choose Your <span className="text-gradient-gold">Course</span>, Build Your <span className="text-gradient-gold">Career</span></h2>
                         </div>
                         <div className="flex flex-wrap gap-2 reveal reveal-d1">
                             <button type="button" className="bg-secondary-container text-on-secondary px-5 py-2 rounded-full font-bold text-xs font-label">
                                 All
                             </button>
-                            {['Postgraduate', 'Undergraduate', 'Foundation'].map((f) => (
+                            {['Foundation', 'Certificate of Higher Education (CertHE)', 'Bachelor’s Degrees', 'Master’s Degrees'].map((f) => (
                                 <button
                                     key={f}
                                     type="button"
@@ -372,7 +410,7 @@ export default function Welcome() {
                             className="inline-flex items-center gap-2 border border-outline-variant/30 text-white/70 hover:text-white hover:border-outline-variant/60 px-8 py-3 rounded-full font-headline font-semibold text-sm transition-all"
                             href="#"
                         >
-                            Browse All 40+ Courses{' '}
+                            Browse All Course Areas{' '}
                             <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                         </a>
                     </div>
@@ -386,7 +424,8 @@ export default function Welcome() {
                 <div className="container mx-auto px-6 lg:px-10 max-w-7xl">
                     <div className="mb-14 reveal">
                         <p className="font-label text-secondary-container font-bold tracking-[0.2em] mb-4 text-xs uppercase">STUDY DESTINATIONS</p>
-                        <h2 className="text-white font-headline font-bold text-[clamp(2rem,4vw,3.5rem)] tracking-tight">Choose Your City.</h2>
+                        <h2 className="text-white font-headline font-bold text-[clamp(2rem,4vw,3.5rem)] tracking-tight">Study in the UK’s <span className="text-gradient-gold">Leading Cities</span></h2>
+                        <p className="text-on-surface-variant text-lg mt-4">We work with top universities across the UK’s most vibrant and opportunity-filled cities. Wherever you choose to study, you’ll gain access to world-class education, diverse cultures, and exciting career prospects.</p>
                     </div>
                     <div className="flex flex-col lg:flex-row gap-8 items-start">
                         <div className="w-full lg:w-56 flex lg:flex-col overflow-x-auto no-scrollbar gap-1.5 flex-shrink-0 reveal">
@@ -493,8 +532,8 @@ export default function Welcome() {
                                 shadow: 'hover:shadow-[0_0_40px_rgba(80,221,184,.06)]',
                                 ring: '',
                                 step: 'Step 03',
-                                title: 'Life in the UK',
-                                desc: 'Visa guidance, accommodation finding, pre-departure briefings and ongoing student support once you arrive in the UK.',
+                                title: 'Expert Guidance',
+                                desc: 'Our experienced consultants are here to simplify your journey. From choosing the right course and university to managing applications and requirements, we provide personalised, end-to-end support—helping you secure the best path for your future.',
                                 delay: 'reveal-d2',
                             },
                         ].map((step) => (
@@ -512,12 +551,11 @@ export default function Welcome() {
                             </div>
                         ))}
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 reveal">
                         {[
-                            { stat: '500+', label: 'Students Placed' },
-                            { stat: '20+', label: 'University Partners' },
-                            { stat: '98%', label: 'Lorem ipsum' },
-                            { stat: '15+', label: 'Countries Served' },
+                            { stat: '9500+', label: 'Students Placed' },
+                            { stat: '50+', label: 'Institutions' },
+                            { stat: '100+', label: 'Expert Consultants' },
                         ].map((item) => (
                             <div key={item.label} className="bg-[#131313]/50 rounded-xl p-6 text-center">
                                 <div className="text-5xl font-headline font-extrabold text-white mb-2">{item.stat}</div>
@@ -815,7 +853,7 @@ export default function Welcome() {
                         <span className="text-gradient-gold">the Next Step?</span>
                     </h2>
                     <p className="text-on-surface-variant text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-                        Speak to one of our expert consultants today and start your application for the March 2026 intake. Places are limited.
+                        Speak to one of our expert consultants today and start your application for the June 2026 intake. Places are limited.
                     </p>
                     <div className="flex flex-wrap justify-center gap-5 mb-20">
                         <a

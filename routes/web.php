@@ -17,7 +17,6 @@ Route::inertia('/', 'welcome', [
     'canRegister' => Features::enabled(Features::registration()),
 ])->name('home');
 
-Route::inertia('/landing-page', 'Public/LandingPage')->name('landing-page');
 Route::inertia('/about', 'Public/About')->name('about');
 Route::inertia('/contact', 'Public/Contact')->name('contact');
 
