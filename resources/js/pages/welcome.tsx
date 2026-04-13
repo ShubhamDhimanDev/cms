@@ -1,5 +1,8 @@
 ﻿import SiteLayout from '@/layouts/site-layout';
+import { Link } from '@inertiajs/react';
 import { useState } from 'react';
+import * as publicEventRoutes from '@/routes/events';
+import type { Event } from '@/types/cms';
 
 const cities = ['london', 'manchester', 'birmingham', 'cardiff', 'swansea', 'leeds', 'nottingham', 'newcastle'] as const;
 type City = (typeof cities)[number];
@@ -213,7 +216,53 @@ const StarFilled = () => (
     </span>
 );
 
-export default function Welcome() {
+type WelcomeEvent = Pick<Event, 'id' | 'title' | 'type' | 'starts_at' | 'ends_at' | 'timezone' | 'location' | 'location_url'>;
+
+type Props = {
+    canRegister: boolean;
+    upcomingEvents: WelcomeEvent[];
+};
+
+function formatEventDateParts(dateString: string, timezone?: string) {
+    const date = new Date(dateString);
+
+    return {
+        month: date.toLocaleString('en-GB', {
+            month: 'short',
+            timeZone: timezone || 'UTC',
+        }),
+        day: date.toLocaleString('en-GB', {
+            day: '2-digit',
+            timeZone: timezone || 'UTC',
+        }),
+    };
+}
+
+function formatEventTimeRange(startsAt: string, endsAt: string | null, timezone?: string): string {
+    const start = new Date(startsAt);
+    const timeZone = timezone || 'UTC';
+    const startTime = start.toLocaleTimeString('en-GB', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+        timeZone,
+    });
+
+    if (!endsAt) {
+        return `${startTime} ${timeZone}`;
+    }
+
+    const endTime = new Date(endsAt).toLocaleTimeString('en-GB', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+        timeZone,
+    });
+
+    return `${startTime}-${endTime} ${timeZone}`;
+}
+
+export default function Welcome({ upcomingEvents }: Props) {
     const [activeCity, setActiveCity] = useState<City>('london');
 
     const city = cityData[activeCity];
@@ -663,58 +712,31 @@ export default function Welcome() {
                             <p className="font-label text-secondary-container font-bold tracking-[0.2em] mb-4 text-xs uppercase">WHAT'S ON</p>
                             <h2 className="text-white font-headline font-bold text-[clamp(2rem,4vw,3.5rem)] tracking-tight">Upcoming Events.</h2>
                         </div>
-                        <a className="text-[#bcc2ff] font-bold text-sm hover:underline mt-4 reveal reveal-d1" href="#">
+                        <Link className="text-[#bcc2ff] font-bold text-sm hover:underline mt-4 reveal reveal-d1" href={publicEventRoutes.index.url()}>
                             See all events
-                        </a>
+                        </Link>
                     </div>
                     <div className="space-y-3">
-                        {[
-                            {
-                                month: 'Apr',
-                                day: '02',
-                                badge: 'Online',
-                                badgeClass: 'text-[#bcc2ff] bg-[#bcc2ff]/10',
-                                title: 'Open Information Session: Postgraduate Degrees',
-                                time: '6:00-7:00 PM BST',
-                                location: 'Zoom Webinar',
-                                locIcon: 'videocam',
-                                delay: '',
-                            },
-                            {
-                                month: 'Apr',
-                                day: '08',
-                                badge: 'In-Person',
-                                badgeClass: 'text-tertiary bg-tertiary/10',
-                                title: "Bachelor's Open Day - London Campus Visit",
-                                time: '11:30 AM-3:30 PM BST',
-                                location: 'Central London',
-                                locIcon: 'location_on',
-                                delay: 'reveal-d1',
-                            },
-                            {
-                                month: 'Apr',
-                                day: '15',
-                                badge: 'Online',
-                                badgeClass: 'text-[#bcc2ff] bg-[#bcc2ff]/10',
-                                title: 'UK Student Visa Masterclass - Step by Step Guide',
-                                time: '5:00-6:00 PM BST',
-                                location: 'Zoom Webinar',
-                                locIcon: 'videocam',
-                                delay: 'reveal-d2',
-                            },
-                        ].map((event) => (
+                        {upcomingEvents.map((event, index) => {
+                            const { month, day } = formatEventDateParts(event.starts_at, event.timezone);
+                            const badgeClass = event.type === 'online' ? 'text-[#bcc2ff] bg-[#bcc2ff]/10' : 'text-tertiary bg-tertiary/10';
+                            const badge = event.type === 'online' ? 'Online' : 'In-Person';
+                            const locIcon = event.type === 'online' ? 'videocam' : 'location_on';
+                            const delay = index === 0 ? '' : index === 1 ? 'reveal-d1' : 'reveal-d2';
+
+                            return (
                             <div
-                                key={event.day + event.title}
-                                className={`group bg-[#131313] rounded-lg p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-5 hover:ring-1 hover:ring-white/10 transition-all reveal ${event.delay}`}
+                                key={event.id}
+                                className={`group bg-[#131313] rounded-lg p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-5 hover:ring-1 hover:ring-white/10 transition-all reveal ${delay}`}
                             >
                                 <div className="flex flex-col md:flex-row gap-5 md:items-center flex-1">
                                     <div className="w-14 h-14 bg-secondary-container/10 border border-secondary-container/20 rounded-xl flex flex-col items-center justify-center flex-shrink-0">
-                                        <span className="text-secondary-container font-label font-bold text-[10px] uppercase">{event.month}</span>
-                                        <span className="text-white font-headline font-extrabold text-xl leading-none">{event.day}</span>
+                                        <span className="text-secondary-container font-label font-bold text-[10px] uppercase">{month}</span>
+                                        <span className="text-white font-headline font-extrabold text-xl leading-none">{day}</span>
                                     </div>
                                     <div>
-                                        <span className={`text-[10px] font-label font-bold uppercase tracking-widest ${event.badgeClass} px-2.5 py-0.5 rounded-full`}>
-                                            {event.badge}
+                                        <span className={`text-[10px] font-label font-bold uppercase tracking-widest ${badgeClass} px-2.5 py-0.5 rounded-full`}>
+                                            {badge}
                                         </span>
                                         <h3 className="text-white font-headline font-bold text-lg mt-1 group-hover:text-secondary-container transition-colors">
                                             {event.title}
@@ -722,23 +744,29 @@ export default function Welcome() {
                                         <div className="flex items-center gap-4 mt-1 text-on-surface-variant text-xs font-label">
                                             <span className="flex items-center gap-1">
                                                 <span className="material-symbols-outlined text-[13px]">schedule</span>
-                                                {event.time}
+                                                {formatEventTimeRange(event.starts_at, event.ends_at, event.timezone)}
                                             </span>
                                             <span className="flex items-center gap-1">
-                                                <span className="material-symbols-outlined text-[13px]">{event.locIcon}</span>
+                                                <span className="material-symbols-outlined text-[13px]">{locIcon}</span>
                                                 {event.location}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
-                                <a
-                                    href="#"
+                                <Link
+                                    href={publicEventRoutes.show.url({ event: event.slug })}
                                     className="shrink-0 inline-flex items-center gap-2 border border-outline-variant/30 text-white/70 hover:text-white hover:border-secondary-container/40 px-5 py-2.5 rounded-full text-sm font-bold font-headline transition-all"
                                 >
                                     Register <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                                </a>
+                                </Link>
                             </div>
-                        ))}
+                        );
+                        })}
+                        {upcomingEvents.length === 0 && (
+                            <div className="bg-[#131313] rounded-lg p-8 text-center text-on-surface-variant">
+                                New events will be announced soon.
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
