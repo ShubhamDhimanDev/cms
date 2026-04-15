@@ -25,6 +25,10 @@ export default function BlogShow({ post }: Props) {
 
     return (
         <SiteLayout title={`${post.title} | Blog`} activePage="blog">
+            <Head>
+                {post.keywords ? <meta name="keywords" content={post.keywords} /> : null}
+            </Head>
+
             <main className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
                 <Link
                     href="/blog"
