@@ -216,6 +216,56 @@ it('stores and updates posts while syncing categories', function () {
         ->toEqual([$thirdCategory->id]);
 });
 
+it('updates a post via method spoofed multipart request', function () {
+    $user = createAdminUser();
+
+    $category = Category::create([
+        'name' => 'News',
+        'slug' => 'news',
+        'description' => null,
+    ]);
+
+    $post = Post::create([
+        'user_id' => $user->id,
+        'title' => 'Original title',
+        'slug' => 'original-title',
+        'excerpt' => 'Original excerpt',
+        'content' => [
+            ['id' => 'block-1', 'type' => 'paragraph', 'content' => 'Original body'],
+        ],
+        'status' => 'draft',
+        'comments_enabled' => true,
+        'comments_require_approval' => true,
+    ]);
+
+    $response = $this->actingAs($user)
+        ->post(route('admin.posts.update', $post), [
+            '_method' => 'PUT',
+            'title' => 'Updated via spoofing',
+            'slug' => 'original-title',
+            'excerpt' => 'Updated excerpt',
+            'content' => [
+                ['id' => 'block-1', 'type' => 'paragraph', 'content' => 'Updated body'],
+            ],
+            'status' => 'published',
+            'published_at' => now()->toDateTimeString(),
+            'category_ids' => [$category->id],
+            'featured_image' => UploadedFile::fake()->image('post-cover.jpg'),
+            'comments_enabled' => true,
+            'comments_require_approval' => false,
+        ]);
+
+    $response
+        ->assertSessionHasNoErrors()
+        ->assertRedirect(route('admin.posts.index'));
+
+    $updatedPost = $post->fresh();
+
+    expect($updatedPost->title)->toBe('Updated via spoofing');
+    expect($updatedPost->status)->toBe('published');
+    expect($updatedPost->categories()->pluck('categories.id')->all())->toEqual([$category->id]);
+});
+
 it('validates required fields when storing a page', function () {
     $user = createAdminUser();
 
