@@ -55,6 +55,7 @@ it('renders a published blog post detail by slug', function () {
         'title' => 'Public Detail Post',
         'slug' => 'public-detail-post',
         'excerpt' => 'Public detail excerpt',
+        'keywords' => 'laravel,inertia,react',
         'content' => [['id' => 'b1', 'type' => 'paragraph', 'content' => 'Public detail content']],
         'status' => 'published',
         'published_at' => now()->subMinute(),
@@ -69,6 +70,7 @@ it('renders a published blog post detail by slug', function () {
             ->component('Public/Blog/Show')
             ->where('post.slug', 'public-detail-post')
             ->where('post.author.name', 'Author Name')
+            ->where('post.keywords', 'laravel,inertia,react')
         );
 });
 
