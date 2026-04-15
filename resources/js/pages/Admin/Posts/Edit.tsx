@@ -29,6 +29,7 @@ type FormData = {
     featured_image_url: string;
     comments_enabled: boolean;
     comments_require_approval: boolean;
+    _method?: 'put';
 };
 
 function toDateTimeLocal(value: string | null): string {
@@ -78,12 +79,13 @@ export default function EditPost({ post, categories }: Props) {
 
         form.transform((data) => ({
             ...data,
+            _method: 'put',
             published_at: data.status === 'published' && data.published_at ? data.published_at : null,
             // Only send one: file upload takes priority over URL
             featured_image_url: data.featured_image ? '' : data.featured_image_url,
         }));
 
-        form.put(postRoutes.update.url({ post: post.id }), {
+        form.post(postRoutes.update.url({ post: post.id }), {
             forceFormData: true,
             onSuccess: () => {
                 form.setData('featured_image', null);
