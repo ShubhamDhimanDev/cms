@@ -66,6 +66,7 @@ it('renders a published blog post detail by slug', function () {
 
     $response
         ->assertOk()
+        ->assertSee('meta name="keywords" content="laravel,inertia,react"', false)
         ->assertInertia(fn (AssertableInertia $page): AssertableInertia => $page
             ->component('Public/Blog/Show')
             ->where('post.slug', 'public-detail-post')

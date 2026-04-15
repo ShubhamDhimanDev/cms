@@ -39,6 +39,9 @@
 
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
+        @if (($page['component'] ?? null) === 'Public/Blog/Show' && filled(data_get($page, 'props.post.keywords')))
+            <meta name="keywords" content="{{ data_get($page, 'props.post.keywords') }}">
+        @endif
         <x-inertia::head>
             <title>{{ config('app.name', 'Laravel') }}</title>
         </x-inertia::head>
