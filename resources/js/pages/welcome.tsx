@@ -1,6 +1,7 @@
-﻿import SiteLayout from '@/layouts/site-layout';
-import { Link } from '@inertiajs/react';
+﻿import { Link } from '@inertiajs/react';
 import { useState } from 'react';
+
+import SiteLayout from '@/layouts/site-layout';
 import * as publicEventRoutes from '@/routes/events';
 import type { Event } from '@/types/cms';
 
@@ -216,7 +217,7 @@ const StarFilled = () => (
     </span>
 );
 
-type WelcomeEvent = Pick<Event, 'id' | 'title' | 'type' | 'starts_at' | 'ends_at' | 'timezone' | 'location' | 'location_url'>;
+type WelcomeEvent = Pick<Event, 'id' | 'slug' | 'title' | 'type' | 'starts_at' | 'ends_at' | 'timezone' | 'location' | 'location_url'>;
 
 type Props = {
     canRegister: boolean;
@@ -338,6 +339,30 @@ export default function Welcome({ upcomingEvents }: Props) {
                     <span className="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
                 </div>
             </header>
+
+            {/* International Student Partner */}
+            <section className="bg-[#131313] py-14 md:py-18">
+                <div className="container mx-auto max-w-7xl px-6 lg:px-10">
+                    <div className="relative overflow-hidden rounded-2xl border border-secondary-container/30 bg-gradient-to-r from-secondary-container/16 via-secondary-container/8 to-transparent p-5 md:p-7 reveal">
+                        <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-secondary-container/20 blur-2xl"></div>
+                        <p className="text-[10px] font-label font-bold uppercase tracking-[0.2em] text-secondary-container">Official International Student Partner</p>
+                        <div className="mt-3 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex items-center gap-3">
+                                <span className="material-symbols-outlined text-secondary-container">handshake</span>
+                                <p className="text-xl font-headline font-extrabold text-white md:text-2xl">Kampus Group</p>
+                            </div>
+                            <img
+                                src="/images/kampus-logo.png"
+                                alt="Kampus Group logo"
+                                className="h-12 w-auto rounded-md bg-white/95 p-2"
+                            />
+                        </div>
+                        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/75 md:text-base">
+                            Working in partnership to connect international students with trusted pathways to UK degree programmes.
+                        </p>
+                    </div>
+                </div>
+            </section>
 
 
             {/* Who We Are */}
