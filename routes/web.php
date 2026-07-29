@@ -62,7 +62,9 @@ Route::get('/copyright-disclaimer-notice', function(){
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
+    Route::get('/dashboard', function(){
+        return redirect(route('admin.dashboard'));
+    });
 });
 
 Route::middleware(['auth', 'admin.access'])->prefix('admin')->name('admin.')->group(function () {
